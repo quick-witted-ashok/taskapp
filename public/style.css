@@ -1,0 +1,175 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #ffafbd, #ffc3a0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+    padding: 20px;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ff6363;
+    margin-bottom: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Icon Button */
+.icon-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.icon-btn img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.icon-btn:hover img {
+    transform: scale(1.1);
+}
+
+/* Form Styling */
+form {
+    margin-bottom: 20px;
+}
+
+input {
+    width: calc(100% - 20px);
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    outline: none;
+    font-size: 16px;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border: 2px solid #ff6363;
+    box-shadow: 0 0 10px rgba(255, 99, 99, 0.3);
+}
+
+/* Button Styles */
+.button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-bottom: 15px; /* Space between buttons */
+}
+
+.button:hover {
+    background-color: #ff2d55;
+    transform: scale(1.05);
+}
+
+/* Task List */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #fafafa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+li:hover {
+    background-color: #ffedee;
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    input,
+    .button {
+        font-size: 14px; /* Adjust font size for inputs and buttons */
+        padding: 12px; /* Smaller padding for mobile */
+    }
+
+    li {
+        font-size: 14px; /* Smaller task font */
+        padding: 10px; /* Smaller task padding */
+    }
+}
+
+@media (max-width: 400px) {
+    h1 {
+        font-size: 20px; /* Even smaller heading for very small screens */
+    }
+
+    input,
+    .button {
+        font-size: 12px; /* Further reduce font size */
+    }
+}

@@ -1,0 +1,202 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="welcomeMsg">Welcome!</h1>
+        <button id="logoutBtn" class="button">Logout</button>
+
+        <form id="taskForm">
+            <input type="text" id="taskInput" placeholder="Enter a new task" required>
+            <button type="submit" class="button">Add Task</button>
+        </form>
+
+        <ul id="taskList"></ul>
+        <button id="saveTasks" class="button">Save Tasks</button>
+    </div>
+
+    <script>
+        let tasks = [];
+        let userEmail = null;
+
+        async function loadUserData() {
+            const response = await fetch('/getUserData');
+            if (response.status === 401) {
+                alert('Please login to access your tasks.');
+                window.location.href = '/login.html';
+                return;
+            }
+
+            const data = await response.json();
+            userEmail = data.email;
+            tasks = data.tasks || [];
+
+            document.getElementById('welcomeMsg').textContent = `Welcome, ${data.username}`;
+            displayTasks();
+        }
+
+        function displayTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.textContent = task;
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => {
+                    tasks.splice(index, 1);
+                    displayTasks();
+                });
+
+                li.appendChild(deleteBtn);
+                taskList.appendChild(li);
+            });
+        }
+
+        document.getElementById('taskForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const taskInput = document.getElementById('taskInput').value;
+            tasks.push(taskInput);
+            displayTasks();
+            document.getElementById('taskInput').value = '';
+        });
+
+        document.getElementById('saveTasks').addEventListener('click', async function() {
+            const response = await fetch('/updateTasks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail, tasks })
+            });
+
+            if (response.ok) {
+                alert('Tasks saved successfully!');
+            } else {
+                alert('Failed to save tasks.');
+            }
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            fetch('/logout', { method: 'POST' })
+                .then(() => window.location.href = '/login.html');
+        });
+
+        loadUserData();
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="welcomeMsg">Welcome!</h1>
+        <button id="logoutBtn" class="button">Logout</button>
+
+        <form id="taskForm">
+            <input type="text" id="taskInput" placeholder="Enter a new task" required>
+            <button type="submit" class="button">Add Task</button>
+        </form>
+
+        <ul id="taskList"></ul>
+        <button id="saveTasks" class="button">Save Tasks</button>
+    </div>
+
+    <script>
+        let tasks = [];
+        let userEmail = null;
+
+        async function loadUserData() {
+            try {
+                const response = await fetch('/getUserData');
+
+                if (response.status === 401) {
+                    alert('Please login to access your tasks.');
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const data = await response.json();
+                userEmail = data.email;
+                tasks = data.tasks || [];
+
+                document.getElementById('welcomeMsg').textContent = `Welcome, ${data.username}`;
+                displayTasks();
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+
+        function displayTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.textContent = task;
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => {
+                    tasks.splice(index, 1);
+                    displayTasks();
+                });
+
+                li.appendChild(deleteBtn);
+                taskList.appendChild(li);
+            });
+        }
+
+        document.getElementById('taskForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const taskInput = document.getElementById('taskInput').value;
+            tasks.push(taskInput);
+            displayTasks();
+            document.getElementById('taskInput').value = '';
+        });
+
+        document.getElementById('saveTasks').addEventListener('click', async function() {
+            try {
+                const response = await fetch('/updateTasks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, tasks })
+                });
+
+                if (response.ok) {
+                    alert('Tasks saved successfully!');
+                } else {
+                    alert('Failed to save tasks.');
+                }
+            } catch (error) {
+                console.error('Error saving tasks:', error);
+            }
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', async function() {
+            try {
+                await fetch('/logout', { method: 'POST' });
+                window.location.href = '/login.html';
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+        });
+
+        loadUserData();
+    </script>
+</body>
+</html>
